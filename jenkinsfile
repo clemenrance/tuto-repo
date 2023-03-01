@@ -29,14 +29,15 @@ pipeline{
             }
         }
         stage{('Static test analysis'){   
+
             steps{
 
                 script{
                     withSonarQubeEnv(credentialsId: 'sonar-auth')
-                    sh 'mvn clean package sonar:soanr'
-                  }
+                    sh 'mvn clean package sonar:sonar'
+                    }
                 }
             }
-       }
+        }
     }
 }
