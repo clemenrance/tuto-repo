@@ -4,7 +4,7 @@ pipeline{
 
     stages{
 
-        stage('Gitcheckout'){  
+        stage('Gitcheckout'){           
 
             steps{
                 git branch: 'main', url: 'https://github.com/clemenrance/tuto-repo.git'
@@ -28,5 +28,15 @@ pipeline{
                 sh 'mvn clean install'
             }
         }
+        stage{('Static test analysis'){   
+            steps{
+
+                script{
+                    withSonarQubeEnv(credentialsId: 'sonar-auth')
+                    sh 'mvn clean package sonar:soanr'
+                  }
+                }
+            }
+       }
     }
 }
